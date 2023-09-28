@@ -19,24 +19,16 @@ namespace Assig1.Controllers
             _context = context;
         }
 
-        // GET: Regions
-        public async Task<IActionResult> Index(string? searchText, int? selectedRegionID)
-        {
-            /*            if (searchText.Equals(r =>r.RegionName))
-{
-    return _context.Regions != null ?
+        /*        // GET: Regions
+                public async Task<IActionResult> Index(string searchText)
+                {
+                    return _context.Regions != null ?
+                                  //Order the regions by the alphabetical  order
+                                  View(await _context.Regions.OrderBy(r => r.RegionName).ToListAsync()) :
+                                  Problem("Entity set 'EnvDataContext.Regions'  is null.");
+                }
+        */
 
-            View(await _context.Regions.OrderBy(r => r.RegionName).Where(r => r.RegionId).ToListAsync());
-
-
-
-}*/
-
-            return _context.Regions != null ?
-                          //Order the regions by the alphabetical  order
-                          View(await _context.Regions.OrderBy(r => r.RegionName).ToListAsync()) :
-                          Problem("Entity set 'EnvDataContext.Regions'  is null.");
-        }
 
         // GET: Regions/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -168,9 +160,34 @@ namespace Assig1.Controllers
 
         private bool RegionExists(int id)
         {
-          return (_context.Regions?.Any(e => e.RegionId == id)).GetValueOrDefault();
+            return (_context.Regions?.Any(e => e.RegionId == id)).GetValueOrDefault();
         }
 
+        // GET: Regions
+        public async Task<IActionResult> Index(string? searchText, int? selectedRegionId)
+        {
+            if (selectedRegionId.HasValue)
+            {
+                // displays the details of a specific region with the matching RegionId value.
+                return View(await _context.Regions
+                                          .Include(r => r.Countries)
+                                          .Where(r => r.RegionId == selectedRegionId)
+                                          .ToListAsync());
+            }
+            else if (!string.IsNullOrEmpty(searchText))
+            {
+                //displays a list of regions whose names contain the provided searchText.
+                return View(await _context.Regions
+                                          .Where(r => r.RegionName.Contains(searchText))
+                                          .OrderBy(r => r.RegionName)
+                                          .ToListAsync());
+            }
+
+            //displays a list of all regions ordered alphabetically.
+            return _context.Regions != null ?
+                                  View(await _context.Regions.OrderBy(r => r.RegionName).ToListAsync()) :
+                                  Problem("Entity set 'EnvDataContext.Regions' is null.");
+        }
 
     }
 
