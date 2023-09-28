@@ -9,13 +9,38 @@
 <!--Create a form for the search bar and dropdown bar for regions--> 
 <form method="get" class="mb-4">
 
-    <div>
+    <div class="row">
         <!--Create a Search bar-->
         <div class="col-md-7">
 
             <input type="text" name="SearchText" class=" form-control-rounded" placeholder="Search for Region" maxlength="100" />
 
         </div>
+
+
+        <!-- Implement dropdown for the list of Regions-->
+        <div class="col-md-3">
+
+            <select name="SelectRegionId" class="form-control">
+
+                <option value=""> All Regions</option>
+
+                @foreach (var region in Model)
+                {
+                    <option value="@region.RegionId"> @region.RegionName </option>
+                }
+
+            </select>
+
+        </div>
+
+        <!--Create a search button-->
+        <div class=" col-md-2">
+
+            <button type="submit" class="btn btn-primary btn-block"> Search </button>
+
+        </div>
+
 
 
     </div>
