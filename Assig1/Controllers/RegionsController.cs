@@ -20,9 +20,11 @@ namespace Assig1.Controllers
         }
 
         // GET: Regions
-        public async Task<IActionResult> Index(string searchText)
+        public async Task<IActionResult> Index(string? searchText, int? selectedRegionID)
         {
-           
+
+
+
             return _context.Regions != null ?
                           //Order the regions by the alphabetical  order
                           View(await _context.Regions.OrderBy(r => r.RegionName).ToListAsync()) :
@@ -161,5 +163,9 @@ namespace Assig1.Controllers
         {
           return (_context.Regions?.Any(e => e.RegionId == id)).GetValueOrDefault();
         }
+
+
     }
+
 }
+
