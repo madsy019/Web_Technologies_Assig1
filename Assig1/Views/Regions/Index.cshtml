@@ -47,36 +47,36 @@
 
 </form>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RegionName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegionName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
+
+<!--Displaying the Regions in bootstrap cards-->
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+
+
+        <div class="card" style="width: 18rem;">
+
+            <img src="@Html.DisplayFor(model => item.ImageUrl)" class="card-img-top" alt="...">
+            
+            <div class="card-body">
+
+                <h5 class="card-title mb-auto"> @Html.DisplayFor(modelItem => item.RegionName)</h5>
+
                 <a asp-action="Edit" asp-route-id="@item.RegionId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.RegionId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.RegionId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+ 
+            </div>
+        </div>
+    }
+
+
+
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
