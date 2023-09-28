@@ -20,10 +20,12 @@ namespace Assig1.Controllers
         }
 
         // GET: Regions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchText)
         {
-              return _context.Regions != null ? 
-                          View(await _context.Regions.ToListAsync()) :
+           
+            return _context.Regions != null ?
+                          //Order the regions by the alphabetical  order
+                          View(await _context.Regions.OrderBy(r => r.RegionName).ToListAsync()) :
                           Problem("Entity set 'EnvDataContext.Regions'  is null.");
         }
 
