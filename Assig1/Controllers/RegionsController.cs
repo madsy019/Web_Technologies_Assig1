@@ -22,8 +22,15 @@ namespace Assig1.Controllers
         // GET: Regions
         public async Task<IActionResult> Index(string? searchText, int? selectedRegionID)
         {
+            /*            if (searchText.Equals(r =>r.RegionName))
+{
+    return _context.Regions != null ?
+
+            View(await _context.Regions.OrderBy(r => r.RegionName).Where(r => r.RegionId).ToListAsync());
 
 
+
+}*/
 
             return _context.Regions != null ?
                           //Order the regions by the alphabetical  order
