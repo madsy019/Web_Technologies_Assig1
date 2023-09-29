@@ -7,27 +7,37 @@
 
 <h1>Countries</h1>
 
-<div>
-    <!--Button back to regions page-->
-    <a asp-action="Index" asp-controller="Regions" class="btn btn-primary btn-sm" style="font-size: 14px;">
-        Back to Regions
-    </a>
+
+<!--Displying all the counties data in the country page as bootstrap cards-->
+
+<div class="row">
+
+    @foreach (var country in Model)
+    {
+        <div class="col-md-3 mb-4">
+
+            <div class="card">
+
+                <!-- Image with fixed height and object-fit property -->
+                <img src="@Html.DisplayFor(modelItem => country.ImageUrl)"
+                
+                 class="card-img-top"
+                 style="height: 150px; object-fit: cover;"
+                 alt="Country Image">
+
+                <div class="card-body">
+
+                    <!-- Adjusted title with fixed height and ellipsis for overflow -->
+                    <h5 class="card-title" style="font-size: 16px; height: 20px; overflow: hidden; text-overflow: ellipsis;">@Html.DisplayFor(modelItem => country.CountryName)</h5>
+
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
 
-<!--Displying all the counties data in the country page-->
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CountryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
-        </td>
 
-    </tr>
-}
 
 
 
