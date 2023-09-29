@@ -30,6 +30,13 @@
                     <!-- Adjusted title with fixed height and ellipsis for overflow -->
                     <h5 class="card-title" style="font-size: 16px; height: 20px; overflow: hidden; text-overflow: ellipsis;">@Html.DisplayFor(modelItem => country.CountryName)</h5>
 
+                    <a asp-action="Details" asp-controller="Countries" asp-route-countryID="@country.CountryId" class="btn btn-primary btn-sm" style="font-size: 14px;">
+                        Emission Data
+                    </a>
+
+                    <a asp-controller="Cities" asp-action="Index" asp-route-countryID="@country.CountryId" class="btn btn-outline-secondary">View Cities</a>
+
+
                 </div>
             </div>
         </div>
