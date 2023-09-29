@@ -22,3 +22,9 @@
     </div>
 </div>
 
+<!-- Buttons to view cities and return to the country list -->
+<div class="d-flex justify-content-between mt-4">
+    <a asp-controller="Cities" asp-action="Index" asp-route-countryID="@Model.CountryId" class="btn btn-primary">View Cities</a>
+    <a asp-controller="Countries" asp-action="Index" asp-route-id="@Model.RegionId" class="btn btn-secondary">Back to Countries List</a>
+</div>
+
