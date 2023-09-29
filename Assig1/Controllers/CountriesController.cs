@@ -21,21 +21,27 @@ namespace Assig1.Controllers
             _context = context;
         }
 
-
-        /*        public IActionResult Index()
-                {
-                    return View();
-                }*/
-
-        //Index Action to display the list of countires
-        public async Task<IActionResult> Index()
+        /// Index action method to display the list of countries.
+        /// If a region ID is provided, it will display countries only from that region.
+        /// If no region ID is provided, it will display all countries.
+        public async Task<IActionResult> Index(int? id)
         {
-            var countries = await _context.Countries
-                .OrderBy(c => c.CountryName)
-                .ToListAsync();
-
-            return View(countries);
-
+            
+            if (id.HasValue)
+            {
+                // Fetch countries associated with the provided region ID
+                var countriesByRegion = await _context.Countries
+                                                      .Where(c => c.RegionId == id)
+                                                      .OrderBy(c => c.CountryName)
+                                                      .ToListAsync();
+                return View(countriesByRegion);
+            }
+            else
+            {
+                // Fetch all countries from the database
+                var allCountries = await _context.Countries.OrderBy(c => c.CountryName).ToListAsync();
+                return View(allCountries);
+            }
         }
     }
 }
