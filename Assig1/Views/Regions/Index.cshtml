@@ -6,6 +6,8 @@
 
 <h1>Regions</h1>
 
+
+
 <!--Create a form for the search bar and dropdown bar for regions--> 
 <form method="get" class="mb-4">
 
@@ -39,10 +41,16 @@
 
             <button type="submit" class="btn btn-primary btn-block"> Search </button>
 
+                         
         </div>
 
 
 
+
+    </div>
+
+    <div class=" col-md-2">
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
     </div>
 
 </form>
@@ -63,9 +71,12 @@
 
                 <h5 class="card-title mb-auto"> @Html.DisplayFor(modelItem => item.RegionName)</h5>
 
-                <a asp-action="Edit" asp-route-id="@item.RegionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RegionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RegionId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.RegionId" class="btn btn-dark btn-sm mr-2">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.RegionId" class="btn btn-info btn-sm mr-2">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.RegionId" class="btn btn-danger btn-sm mr-2">Delete</a>
+
+                <!--Button to navigate to countries in selected region-->
+                <a asp-controller="Countries" asp-action="Index" asp-route-id="@item.RegionId" class="btn btn-primary btn-sm mt-2">View Countries</a>
 
  
             </div>
@@ -76,7 +87,5 @@
 
 </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 
