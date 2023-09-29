@@ -43,5 +43,22 @@ namespace Assig1.Controllers
                 return View(allCountries);
             }
         }
+
+        //Details action to displays the name of the country, and where available, the region the country belongs to. 
+        public async Task<IActionResult> Details(int countryID)
+        {
+            var country = await _context.Countries
+                                        .Include(r => r.Region)
+                                        .Include(c => c.CountryEmissions)
+                                        .Include(t => t.TemperatureData)
+                                        .FirstOrDefaultAsync(i => i.CountryId == countryID);
+
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            return View(country); // Directly pass the country object since it contains all the necessary data
+        }
     }
 }
