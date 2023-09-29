@@ -1,11 +1,24 @@
 ﻿@model Assig1.Models.Country
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Country Details";
 }
 
 <h1>Details</h1>
 
+<!-- Country Details represented in a Bootstrap Card -->
+<div class="card mb-4">
+    <!--Display Country name-->
+    <div class="card-header">
+        <h2>@Model.CountryName</h2>
+    </div>
+    <!--Display Country image-->
+    <div class="card-body d-flex justify-content-center">
+        <img src="@Model.ImageUrl" alt="@Model.CountryName" class="img-fluid" style="max-width: 400px;">
+    </div>
+    <!--Display Region the country is from-->
+    <div class="card-footer">
+        <p>Region: @(Model.Region?.RegionName ?? "Not Available")</p>
+    </div>
+</div>
 
-
-@*<p>Region: @(Model.Region?.RegionName ?? "Not Available")</p>*@
