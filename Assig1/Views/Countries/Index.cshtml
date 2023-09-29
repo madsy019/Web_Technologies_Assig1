@@ -6,6 +6,28 @@
 
 <h1>Countries</h1>
 
+<div>
+    <!--Button back to regions page-->
+    <a asp-action="Index" asp-controller="Regions" class="btn btn-primary btn-sm" style="font-size: 14px;">
+        Back to Regions
+    </a>
+</div>
+
+
+<!--Displying all the counties data in the country page-->
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CountryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageUrl)
+        </td>
+
+    </tr>
+}
+
 
 
 
