@@ -48,10 +48,12 @@ namespace Assig1.Controllers
         public async Task<IActionResult> Details(int countryID)
         {
             var country = await _context.Countries
-                                        .Include(r => r.Region)
-                                        .Include(c => c.CountryEmissions)
-                                        .Include(t => t.TemperatureData)
-                                        .FirstOrDefaultAsync(i => i.CountryId == countryID);
+                                .Include(c => c.Region)
+                                .Include(c => c.CountryEmissions)
+                                .ThenInclude(ce => ce.ItemElement)
+                                .ThenInclude(ie => ie.Item) // Include the Item navigation property from ItemElement
+                                .Include(c => c.TemperatureData)
+                                .FirstOrDefaultAsync(c => c.CountryId == countryID);
 
             if (country == null)
             {
