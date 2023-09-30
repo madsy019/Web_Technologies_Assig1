@@ -82,23 +82,59 @@
 </div>
 
 
-<!--Displaying the Temperature data and Emissions data in -->
+<!--Displaying the Temperature data and Emissions data in seperate tables side by side -->
 <div class="row">
 
-    <div class="col-md-5">
+    <div class="col-md-6">
 
-        <h3>Emission data</h3>
-        
+        <h3 style="color:red;">Emission data</h3>
 
+        <table class="table table-striped" >
+
+            <tr>
+                <th>Year</th>
+                <th>Emission Type</th>
+                <th>Value</th>
+            </tr>
+
+            <!--Check for emission in the model-->
+            @if (Model.CountryEmissions.Any())
+
+            {
+                <!--Order the available emission data by year -->
+                foreach (var emission in Model.CountryEmissions.OrderBy(t => t.Year))
+
+                {
+                    //Display the emision year, the type of emission, and the emission value
+                    <tr>
+                        <td>@emission.Year</td>
+                        <td>@emission.ItemElement.Item.ItemName</td>
+                        <td>@emission.Value</td>
+
+                    </tr>
+
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">No data available</td>
+                </tr>
+
+            }
+
+        </table>
 
    </div>
 
-   <div class="col-md-4">
+
+   <div class="col-md-6">
 
         <!--Displaying Temperature data in the table-->
-        <h3>Temperature Data</h3>
+        <h3 style="color:red;">Temperature Data</h3>
 
-        <table class="table table-striped" style="width:40%">
+        <table class="table table-striped" >
 
             <tr>
                 <th>Year</th>
@@ -141,33 +177,6 @@
   
 
 </div>
-
-
-
-@*    <!-- For each loop that iterates through a 
-    sorted list of unique years from two different data sources 
-    (CountryEmissions and TemperatureData) in ascending order and display data for each year.-->
-    @foreach (var year in Model.CountryEmissions.Select(e => e.Year.GetValueOrDefault())
-            .Union(Model.TemperatureData
-            .Select(t => t.Year))
-            .Distinct()
-            .OrderBy(y => y))
-    {
-
-        //Variable to hold emissons data
-         var emissionForYear = Model.CountryEmissions.FirstOrDefault(e => e.Year == year);
-
-         //Variable to hold temperature data
-            var temperatureForYear = Model.TemperatureData.FirstOrDefault(t => t.Year == year);
-            <tr>
-                <td>@year</td>
-                <td>@temperatureForYear?.Change</td>
-                <td>@temperatureForYear?.Value</td>
-            </tr>
-        
-    }*@
-
-
 
 
 <!-- Buttons to view cities and return to the country list -->
