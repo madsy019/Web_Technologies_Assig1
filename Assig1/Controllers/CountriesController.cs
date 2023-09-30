@@ -61,6 +61,28 @@ namespace Assig1.Controllers
                 return NotFound();
             }
 
+            // Aggregate queries for emission data
+            var avgEmission = await _context.CountryEmissions
+                                            .Where(e => e.CountryId == countryID)
+                                            .AverageAsync(e => e.Value);
+            var maxEmission = await _context.CountryEmissions
+                                            .Where(e => e.CountryId == countryID)
+                                            .MaxAsync(e => e.Value);
+            var minEmission = await _context.CountryEmissions
+                                            .Where(e => e.CountryId == countryID)
+                                            .MinAsync(e => e.Value);
+
+            // Aggregate queries for temperature data
+            var avgTemperature = await _context.TemperatureData
+                                               .Where(t => t.CountryId == countryID)
+                                               .AverageAsync(t => t.Value);
+            var maxTemperature = await _context.TemperatureData
+                                               .Where(t => t.CountryId == countryID)
+                                               .MaxAsync(t => t.Value);
+            var minTemperature = await _context.TemperatureData
+                                               .Where(t => t.CountryId == countryID)
+                                               .MinAsync(t => t.Value);
+
             //Add to CountryDetailsViewModel
 
             var viewModel = new CountryDetailsViewModel
@@ -70,7 +92,6 @@ namespace Assig1.Controllers
                 ImageUrl = country.ImageUrl,
                 RegionName = country.Region?.RegionName,
 
-                /*AvgEmissions = country.CountryEmissions.Average(e => e.Value),*/
 
             };
 
