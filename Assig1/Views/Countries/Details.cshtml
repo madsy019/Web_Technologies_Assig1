@@ -6,6 +6,17 @@
 
 <h1>Details</h1>
 
+<!--Variables to store Emission & temperature details(min, max, avg) -->
+@{
+    var avgEmission = Model.CountryEmissions.Average(e => e.Value);
+    var maxEmission = Model.CountryEmissions.Max(e => e.Value);
+    var minEmission = Model.CountryEmissions.Min(e => e.Value);
+
+    var avgTemperature = Model.TemperatureData.Average(t => t.Value);
+    var maxTemperature = Model.TemperatureData.Max(t => t.Value);
+    var minTemperature = Model.TemperatureData.Min(t => t.Value);
+}
+
 <!-- Country Details represented in a Bootstrap Card -->
 <div class="card mb-4">
     <!--Display Country name-->
