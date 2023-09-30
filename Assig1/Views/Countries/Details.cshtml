@@ -22,6 +22,18 @@
     </div>
 </div>
 
+<!--Displaying Emissons and Temprature -->
+<!--Use a table to display the following data-->
+<table class="table table-striped">
+    <tr>
+        <th>Year</th>
+        <th>Emission Value</th>
+        <th>Temperature Change</th>
+        <th>Temperature Value</th>
+    </tr>
+</table>
+
+
 <!-- Buttons to view cities and return to the country list -->
 <div class="d-flex justify-content-between mt-4">
     <a asp-controller="Cities" asp-action="Index" asp-route-countryID="@Model.CountryId" class="btn btn-primary">View Cities</a>
