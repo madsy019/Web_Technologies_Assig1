@@ -44,25 +44,30 @@
     </div>
     
     <div class ="card-body">
+
         <div class="row">
+
             <div class="col-md-5">
 
-                <h5>Emission Data:</h5>
+                <h5 class="text-primary">Emission Data:</h5>
 
                 <!--Diaplay Emissions data-->
-                <p>Average Emission: @avgEmission?.ToString("F2")</p>
-                <p>Max Emission: @maxEmission</p>
-                <p>Min Emission: @minEmission</p>
+                <p> <strong> Average Emission: </strong> @(avgEmission?.ToString("F2")?? "Not Available")</p>
+                <p> <strong> Max Emission: </strong> @(maxEmission?.ToString("F2") ?? "Not Available")</p>
+                <p> <strong> Min Emission: </strong> @(minEmission?.ToString("F2") ?? "Not Available")</p>
 
             </div>
 
             <div class="col-md-4">
 
-                <h5>Temperature Data:</h5>
+                <h5 class="text-primary">Temperature Data:</h5>
+
                 <!--Diaplay Temperature data-->
-                <p>Average Temperature: @avgTemperature?.ToString("F2")</p>
-                <p>Max Temperature: @maxTemperature</p>
-                <p>Min Temperature: @minTemperature</p>
+                <p> <strong> Average Temperature:  </strong> @(avgTemperature?.ToString("F2") ?? "Not Available")</p>
+                <p> <strong> Max Temperature: </strong> @(maxTemperature?.ToString("F2") ?? "Not Available")</p>
+                <p> <strong> Min Temperature: </strong> @(minTemperature?.ToString("F2") ?? "Not Available")</p>
+
+
             </div>
 
 
