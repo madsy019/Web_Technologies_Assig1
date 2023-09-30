@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Assig1.Data;
 using Assig1.Models;
-
+using Assig1.ViewModels;
 
 namespace Assig1.Controllers
 {
@@ -47,6 +47,7 @@ namespace Assig1.Controllers
         //Details action to displays the name of the country, and where available, the region the country belongs to. 
         public async Task<IActionResult> Details(int countryID)
         {
+            // Fetch the country from the database, including its associated Region, CountryEmissions, TemperatureData, and the related ItemElement and Item.
             var country = await _context.Countries
                                 .Include(c => c.Region)
                                 .Include(c => c.CountryEmissions)
@@ -59,6 +60,19 @@ namespace Assig1.Controllers
             {
                 return NotFound();
             }
+
+            //Add to CountryDetailsViewModel
+
+            var viewModel = new CountryDetailsViewModel
+            {
+                CountryId = countryID,
+                CountryName = country.CountryName,
+                ImageUrl = country.ImageUrl,
+                RegionName = country.Region?.RegionName,
+
+                /*AvgEmissions = country.CountryEmissions.Average(e => e.Value),*/
+
+            };
 
             return View(country); // Directly pass the country object since it contains all the necessary data
         }
