@@ -94,7 +94,7 @@ namespace Assig1.Controllers
 
             };
 
-            return View(country); // Directly pass the country object since it contains all the necessary data
+            return View(viewModel); // Directly pass the country object since it contains all the necessary data
         }
     }
 }
