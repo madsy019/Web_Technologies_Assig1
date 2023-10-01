@@ -10,16 +10,34 @@ namespace Assig1.Controllers
     public class CitiesController : Controller
     {
 
-        private readonly EnvDataContext _Context;
+        private readonly EnvDataContext _context;
 
         public CitiesController(EnvDataContext context)
         {
-            _Context = context;
+            _context = context;
         }
 
 
-        public IActionResult Index(int countryID, string? searchTerms)
+        public IActionResult Index(int countryID, string? searchTerm)
         {
+
+            //Fetch the country and region information based on provided country ID
+            var country = _context.Countries.FirstOrDefault(c => c.CountryId == countryID);
+
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            //Fetch the list of cities for given country
+            var cities = _context.Cities
+                .Include(c => c.AirQualityData)
+                .Where(c => c.CountryId == countryID)
+                .OrderBy(c => c.CountryId)
+                .ToList();
+
+
+
             return View();
         }
     }
