@@ -1,4 +1,4 @@
-﻿@model Assig1.Models.Country
+﻿@model Assig1.ViewModels.CountryDetailsViewModel
 
 @{
     ViewData["Title"] = "Country Details";
@@ -6,16 +6,7 @@
 
 <h1>Details</h1>
 
-<!--Variables to store Emission & temperature details(min, max, avg) -->
-@{
-    var avgEmission = Model.CountryEmissions.Average(e => e.Value);
-    var maxEmission = Model.CountryEmissions.Max(e => e.Value);
-    var minEmission = Model.CountryEmissions.Min(e => e.Value);
 
-    var avgTemperature = Model.TemperatureData.Average(t => t.Value);
-    var maxTemperature = Model.TemperatureData.Max(t => t.Value);
-    var minTemperature = Model.TemperatureData.Min(t => t.Value);
-}
 
 <!-- Country Details represented in a Bootstrap Card -->
 <div class="card mb-4">
@@ -29,7 +20,7 @@
     </div>
     <!--Display Region the country is from-->
     <div class="card-footer">
-        <p>Region: @(Model.Region?.RegionName ?? "Not Available")</p>
+        <p>Region: @Model.RegionName</p>
     </div>
 </div>
 
