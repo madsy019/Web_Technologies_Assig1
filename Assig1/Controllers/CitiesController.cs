@@ -36,9 +36,17 @@ namespace Assig1.Controllers
                 .OrderBy(c => c.CountryId)
                 .ToList();
 
+            // Populate the CitiesIndexViewModel
+            var viewModel = new CitiesIndexViewModel
+            {
+                CountryName = country.CountryName,
+                ImageUrl = country.ImageUrl,
+                RegionName = country.Region?.RegionName,
+                
+            };
 
 
-            return View();
+            return View(viewModel);
         }
     }
 }
