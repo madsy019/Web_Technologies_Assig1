@@ -38,7 +38,7 @@
 
 <!--Display Cities list-->
 
-<table>
+<table class="table table-striped">
     <thead>
 
         <tr>
@@ -52,7 +52,27 @@
 
     </thead>
 
+    <tbody>
+        <!--for each loop to go through all the cities and get info-->
+        @foreach (var city in Model.CitiesInfo)
+        {
+            <tr>
+                <td>@city.CityName</td>
+                <td>@city.EarliestYear</td>
+                <td>@city.LatestYear</td>
+                <td>@city.RecordCount</td>
+                <td>
+
+                    <!-- Link to view the Air Quality Data for the selected city (to be implemented in Task 5) -->
+                    <a href="#" class="btn btn-info btn-sm">View Air Quality Data</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
 </table>
+
+
 
 
 <!-- Button to navigate back to the previous step -->

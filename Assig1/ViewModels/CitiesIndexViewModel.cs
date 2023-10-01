@@ -28,4 +28,14 @@ namespace Assig1.ViewModels
     public List<string> CityNames { get; set; } = new List<string>();
 
     }
+
+    //Air quality properties 
+    public class CityAirQualityInfo
+    {
+        public string CityName { get; set; } = string.Empty;
+        public int? EarliestYear { get; set; }
+        public int? LatestYear { get; set; }
+        public int NumberOfRecords { get; set; }
+    }
+
 }
