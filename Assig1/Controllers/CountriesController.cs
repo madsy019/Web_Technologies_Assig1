@@ -61,38 +61,29 @@ namespace Assig1.Controllers
                 return NotFound();
             }
 
-            // Aggregate queries for emission data
-            var avgEmission = await _context.CountryEmissions
-                                            .Where(e => e.CountryId == countryID)
-                                            .AverageAsync(e => e.Value);
-            var maxEmission = await _context.CountryEmissions
-                                            .Where(e => e.CountryId == countryID)
-                                            .MaxAsync(e => e.Value);
-            var minEmission = await _context.CountryEmissions
-                                            .Where(e => e.CountryId == countryID)
-                                            .MinAsync(e => e.Value);
-
-            // Aggregate queries for temperature data
-            var avgTemperature = await _context.TemperatureData
-                                               .Where(t => t.CountryId == countryID)
-                                               .AverageAsync(t => t.Value);
-            var maxTemperature = await _context.TemperatureData
-                                               .Where(t => t.CountryId == countryID)
-                                               .MaxAsync(t => t.Value);
-            var minTemperature = await _context.TemperatureData
-                                               .Where(t => t.CountryId == countryID)
-                                               .MinAsync(t => t.Value);
+            
 
             //Add to CountryDetailsViewModel
 
             var viewModel = new CountryDetailsViewModel
             {
-                CountryId = countryID,
+                CountryId = country.CountryId,
                 CountryName = country.CountryName,
                 ImageUrl = country.ImageUrl,
                 RegionName = country.Region?.RegionName,
 
+                // calculates the average, max and min values using linq and lambda expression.
 
+                AvgEmission = country.CountryEmissions.Average(e => e.Value),
+                MaxEmission = country.CountryEmissions.Max(e => e.Value),
+                MinEmission = country.CountryEmissions.Min(e => e.Value),
+
+
+                AvgTemperature = country.TemperatureData.Average(e => e.Value),
+                MaxTemperature = country.TemperatureData.Max(e => e.Value),
+                MinTemperature = country.TemperatureData.Min(e => e.Value),
+
+                
             };
 
             return View(country); // Directly pass the country object since it contains all the necessary data
