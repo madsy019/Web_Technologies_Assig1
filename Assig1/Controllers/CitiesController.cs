@@ -47,13 +47,34 @@ namespace Assig1.Controllers
             List<CityDataViewModel> cityData = new List<CityDataViewModel>();
 
 
-            // Populate the CitiesIndexViewModel
+            //For each city, fetch the air quality data and determine the earliest and latest year
+            cityData = cities.Select(c =>
+            {
+                int? earliestYear = null;
+                int? latestYear = null;
+                if (c.AirQualityData.Any()) // Check if there's any AirQualityData for the city
+                {
+                    earliestYear = c.AirQualityData.Min(aqd => aqd.Year);
+                    latestYear = c.AirQualityData.Max(aqd => aqd.Year);
+                }
+                return new CityDataViewModel
+                {
+                    CityName = c.CityName,
+                    EarliestYear = earliestYear,
+                    LatestYear = latestYear,
+                    RecordCount = c.AirQualityData.Count
+                };
+            }).ToList();
+
+
+            //Populate the CitiesIndexViewModel
             var viewModel = new CitiesIndexViewModel
             {
                 CountryName = country.CountryName,
                 ImageUrl = country.ImageUrl,
                 RegionName = country.Region?.RegionName,
-                
+                CitiesInfo = cityData
+
             };
 
 
