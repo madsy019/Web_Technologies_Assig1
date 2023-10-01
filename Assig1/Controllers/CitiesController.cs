@@ -36,6 +36,17 @@ namespace Assig1.Controllers
                 .OrderBy(c => c.CountryId)
                 .ToList();
 
+
+            //If a search term is provided, filter the cities based on the search term
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                cities = cities.Where(c => c.CityName.StartsWith(searchTerm)).ToList();
+            }
+
+            // Initialize cityData as an empty list
+            List<CityDataViewModel> cityData = new List<CityDataViewModel>();
+
+
             // Populate the CitiesIndexViewModel
             var viewModel = new CitiesIndexViewModel
             {
