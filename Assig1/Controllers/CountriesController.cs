@@ -83,7 +83,15 @@ namespace Assig1.Controllers
                 MaxTemperature = country.TemperatureData.Max(e => e.Value),
                 MinTemperature = country.TemperatureData.Min(e => e.Value),
 
-                
+                TemperatureData = country.TemperatureData, // Direct assignment since it's an IEnumerable
+
+                CountryEmissions = country.CountryEmissions.Select(ce => new CountryEmissionViewModel
+                {
+                    Year = ce.Year ?? 0, // Assuming you want to default to 0 if Year is null
+                    Value = ce.Value,
+                    ItemName = ce.ItemElement?.Item?.ItemName ?? "Not Available"
+                })
+
             };
 
             return View(country); // Directly pass the country object since it contains all the necessary data
