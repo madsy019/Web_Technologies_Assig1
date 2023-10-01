@@ -43,9 +43,10 @@
                 <h5 class="text-primary">Emission Data:</h5>
 
                 <!--Diaplay Emissions data-->
-                <p> <strong> Average Emission: </strong> @(avgEmission?.ToString("F2")?? "Not Available")</p>
-                <p> <strong> Max Emission: </strong> @(maxEmission?.ToString("F2") ?? "Not Available")</p>
-                <p> <strong> Min Emission: </strong> @(minEmission?.ToString("F2") ?? "Not Available")</p>
+
+                <p><strong>Average Emission:</strong> @(Model.AvgEmission.HasValue? Model.AvgEmission.Value.ToString("F2"): "Not Available")</p>
+                <p><strong>Max Emission:</strong> @(Model.MaxEmission.HasValue ? Model.MaxEmission.Value.ToString("F2") : "Not Available")</p>
+                <p><strong>Min Emission:</strong> @(Model.MinEmission.HasValue ? Model.MinEmission.Value.ToString("F2") : "Not Available")</p>
 
             </div>
 
@@ -54,9 +55,10 @@
                 <h5 class="text-primary">Temperature Data:</h5>
 
                 <!--Diaplay Temperature data-->
-                <p> <strong> Average Temperature:  </strong> @(avgTemperature?.ToString("F2") ?? "Not Available")</p>
-                <p> <strong> Max Temperature: </strong> @(maxTemperature?.ToString("F2") ?? "Not Available")</p>
-                <p> <strong> Min Temperature: </strong> @(minTemperature?.ToString("F2") ?? "Not Available")</p>
+
+                <p><strong>Average Temperature: </strong>@(Model.AvgTemperature.HasValue ? $"{Model.AvgTemperature.Value: F2} °C": "Not Available ")</p>
+                <p><strong>Max Temperature: </strong>@(Model.MaxTemperature.HasValue ? $"{Model.MaxTemperature.Value: F2} °C" : "Not Available ")</p>
+                <p><strong>Min Temperature: </strong>@(Model.MinTemperature.HasValue ? $"{Model.MinTemperature.Value: F2} °C" : "Not Available ")</p>
 
 
             </div>
@@ -99,8 +101,8 @@
                     //Display the emision year, the type of emission, and the emission value
                     <tr>
                         <td>@emission.Year</td>
-                        <td>@emission.ItemElement.Item.ItemName</td>
-                        <td>@emission.Value</td>
+                        <td>@emission.ItemName</td>
+                        <td>@(emission.Value.HasValue ? emission.Value.Value.ToString("F2") : "Not Available")</td>
 
                     </tr>
 
@@ -142,12 +144,12 @@
 
                 {
                     <tr>
-
                         <td>@temp.Year</td>
-                        <td class="col-5">@(string.IsNullOrEmpty(temp.Change) ? "Not Available" : temp.Change)</td>
-                        <td>@(temp.Value.HasValue ? $"{temp.Value.Value} °C" : "Not Available")</td>
+                        <td>@(string.IsNullOrEmpty(temp.Change) ? "Not Available" : temp.Change)</td>
+                        <td>@(temp.Value.HasValue ? $"{temp.Value.Value:F2} °C" : "Not Available")</td>
 
                     </tr>
+
 
                 }
 
