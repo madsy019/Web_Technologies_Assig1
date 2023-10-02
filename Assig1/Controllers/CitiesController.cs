@@ -86,7 +86,7 @@ namespace Assig1.Controllers
         public IActionResult GetCityNames(string term, int countryID)
         {
             var cityNames = _context.Cities
-                            .Where(c => c.CountryId == countryID)
+                            .Where(c => c.CountryId == countryID && c.CityName.StartsWith(term))
                             .Select(c => c.CityName)
                             .ToList();
                             

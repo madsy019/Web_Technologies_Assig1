@@ -79,3 +79,22 @@
 <div class="mt-4">
     <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-secondary">Back to Previous Page</a>
 </div>
+
+<!--JavaScript code is  for implementing a simple search/filter functionality for a list of cities displayed in table-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchBox = document.getElementById("citySearch");
+        const cityRows = document.querySelectorAll("tbody tr");
+        searchBox.addEventListener("input", function () {
+            const searchTerm = searchBox.value.toLowerCase();
+            cityRows.forEach(row => {
+                const cityName = row.querySelector("td").textContent.toLowerCase();
+                if (cityName.startsWith(searchTerm)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
