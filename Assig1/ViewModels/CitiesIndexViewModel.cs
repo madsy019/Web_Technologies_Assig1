@@ -20,6 +20,7 @@ namespace Assig1.ViewModels
     public string CountryName { get; set; } = string.Empty;
     public string? ImageUrl { get; set; }
     public string? RegionName { get; set; }
+    public int CountryId { get; set; }
 
     // List of Cities with Air Quality Data
     public List<CityDataViewModel> CitiesInfo { get; set; } = new List<CityDataViewModel>();

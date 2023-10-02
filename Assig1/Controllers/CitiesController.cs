@@ -18,7 +18,7 @@ namespace Assig1.Controllers
         }
 
 
-        public IActionResult Index(int countryID, string? searchTerm)
+        public IActionResult Index(int countryID, string? searchTerm = "")
         {
 
             //Fetch the country and region information based on provided country ID
@@ -73,12 +73,25 @@ namespace Assig1.Controllers
                 CountryName = country.CountryName,
                 ImageUrl = country.ImageUrl,
                 RegionName = country.Region?.RegionName,
-                CitiesInfo = cityData
-
+                CitiesInfo = cityData,
+                CountryId = country.CountryId,
             };
 
 
             return View(viewModel);
+        }
+
+        //HTTP GET request for returning a list of city names based on the provided parameters
+        [HttpGet]
+        public IActionResult GetCityNames(string term, int countryID)
+        {
+            var cityNames = _context.Cities
+                            .Where(c => c.CountryId == countryID)
+                            .Select(c => c.CityName)
+                            .ToList();
+                            
+
+            return Json(cityNames);
         }
     }
 }
