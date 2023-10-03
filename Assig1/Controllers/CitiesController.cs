@@ -4,6 +4,7 @@ using Assig1.Models;
 using Assig1.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Diagnostics.Metrics;
 
 namespace Assig1.Controllers
 {
@@ -33,7 +34,7 @@ namespace Assig1.Controllers
             var cities = _context.Cities
                 .Include(c => c.AirQualityData)
                 .Where(c => c.CountryId == countryID)
-                .OrderBy(c => c.CountryId)
+                .OrderBy(c => c.CityName)
                 .ToList();
 
 
@@ -83,10 +84,13 @@ namespace Assig1.Controllers
 
         //HTTP GET request for returning a list of city names based on the provided parameters
         [HttpGet]
-        public IActionResult GetCityNames(string term, int countryID)
+
+        //Returns JSON data containing city names for a given country ID.
+        public JsonResult GetCityNames(int countryID)
         {
             var cityNames = _context.Cities
-                            .Where(c => c.CountryId == countryID && c.CityName.StartsWith(term))
+                            .Where(c => c.CountryId == countryID)
+                            .OrderBy(c => c.CityName)  // Order cities alphabetically
                             .Select(c => c.CityName)
                             .ToList();
                             
