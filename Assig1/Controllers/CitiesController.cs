@@ -131,7 +131,7 @@ namespace Assig1.Controllers
                 CityName = city.CityName,
                 CountryName = city.Country.CountryName,
                 RegionName = city.Country.Region?.RegionName, // Use the null conditional operator in case the region is null
-               
+                /*AirQualityDataList = airQualityInfoList*/
             };
 
             return View(viewModel); // Return the view with the populated ViewModel
