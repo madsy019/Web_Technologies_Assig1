@@ -7,6 +7,7 @@ namespace Assig1.ViewModels
     //City properties 
     public class CityDataViewModel
     {
+        public int CityId { get; set; }
         public string? CityName { get; set; } // Name of the city
         public int? EarliestYear { get; set; } // Earliest year for which air quality data is available for the city
         public int? LatestYear { get; set; } // Latest year for which air quality data is available for the city

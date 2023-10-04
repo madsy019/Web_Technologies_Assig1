@@ -5,6 +5,8 @@ using Assig1.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Diagnostics.Metrics;
+using System.Drawing;
+using System.Buffers.Text;
 
 namespace Assig1.Controllers
 {
@@ -60,6 +62,7 @@ namespace Assig1.Controllers
                 }
                 return new CityDataViewModel
                 {
+                    CityId = c.CityId,
                     CityName = c.CityName,
                     EarliestYear = earliestYear,
                     LatestYear = latestYear,
@@ -96,6 +99,35 @@ namespace Assig1.Controllers
                             
 
             return Json(cityNames);
+        }
+
+        //displaying details for a specific city 
+        public IActionResult Details(int id, int countryID)
+        {
+
+            // Fetch the city based on the provided ID
+            var city = _context.Cities
+                               .Include(c => c.Country) // Include the related Country data
+                               .FirstOrDefault(c => c.CityId == id);
+
+            if (city == null)
+            {
+                return NotFound(); // Return a 404 error if the city is not found
+            }
+
+            // Fetch the region for the country
+            var region = _context.Regions.FirstOrDefault(r => r.RegionId == city.Country.RegionId);
+
+
+            // Create a ViewModel to pass the data to the view
+            var viewModel = new CityDetailsViewModel
+            {
+                CityName = city.CityName,
+                CountryName = city.Country.CountryName,
+                RegionName = region?.RegionName // Use the null conditional operator in case the region is null
+            };
+
+            return View(viewModel); // Return the view with the populated ViewModel
         }
     }
 }
