@@ -3,6 +3,7 @@ using Assig1.Data;
 using Assig1.Models;
 using Assig1.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Diagnostics.Metrics;
 using System.Drawing;
@@ -14,10 +15,12 @@ namespace Assig1.Controllers
     {
 
         private readonly EnvDataContext _context;
+        private readonly ILogger<CitiesController> _logger;
 
-        public CitiesController(EnvDataContext context)
+        public CitiesController(EnvDataContext context, ILogger<CitiesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
 
@@ -102,25 +105,27 @@ namespace Assig1.Controllers
         }
 
         //displaying details for a specific city 
-        public IActionResult Details(int cityID, int countryID)
+        public IActionResult Details(int id, int countryID)
         {
 
             // Fetch the city, country, and region information
             var city = _context.Cities
                                .Include(c => c.Country) // Include the related Country data
                                .ThenInclude(country => country.Region)
-                               .FirstOrDefault(c => c.CityId == cityID);
+                               .Include(c => c.AirQualityData)  // Include AirQualityData
+                               .ThenInclude(aqd => aqd.AirQualityStations)  // Optionally include related AirQualityStations
+                               .FirstOrDefault(c => c.CityId == id);
 
             if (city == null)
             {
                 return NotFound(); 
             }
 
-            // Fetch the CountryId for the given CityId
+/*            // Fetch the CountryId for the given CityId
             var countryId = _context.Cities
                 .Where(c => c.CityId == cityID)
                 .Select(c => c.CountryId)
-                .FirstOrDefault();
+                .FirstOrDefault();*/
 
             // Fetch the region for the country
             var region = _context.Regions.FirstOrDefault(r => r.RegionId == city.Country.RegionId);

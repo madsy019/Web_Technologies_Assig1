@@ -1,8 +1,20 @@
-﻿@{
+﻿@model Assig1.ViewModels.CityDetailsViewModel
+@{
     ViewData["Title"] = "City Details";
 }
 
 <h1>City Details</h1>
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h2>@Model.CityName</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>Country:</strong> @Model.CountryName</p>
+        <p><strong>Region:</strong> @Model.RegionName</p>
+    </div>
+</div>
 
 <!-- Button to navigate back to the previous step -->
 <div class="mt-4">
