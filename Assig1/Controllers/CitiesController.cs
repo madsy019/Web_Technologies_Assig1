@@ -102,29 +102,36 @@ namespace Assig1.Controllers
         }
 
         //displaying details for a specific city 
-        public IActionResult Details(int id, int countryID)
+        public IActionResult Details(int cityID, int countryID)
         {
 
-            // Fetch the city based on the provided ID
+            // Fetch the city, country, and region information
             var city = _context.Cities
                                .Include(c => c.Country) // Include the related Country data
-                               .FirstOrDefault(c => c.CityId == id);
+                               .ThenInclude(country => country.Region)
+                               .FirstOrDefault(c => c.CityId == cityID);
 
             if (city == null)
             {
-                return NotFound(); // Return a 404 error if the city is not found
+                return NotFound(); 
             }
+
+            // Fetch the CountryId for the given CityId
+            var countryId = _context.Cities
+                .Where(c => c.CityId == cityID)
+                .Select(c => c.CountryId)
+                .FirstOrDefault();
 
             // Fetch the region for the country
             var region = _context.Regions.FirstOrDefault(r => r.RegionId == city.Country.RegionId);
-
 
             // Create a ViewModel to pass the data to the view
             var viewModel = new CityDetailsViewModel
             {
                 CityName = city.CityName,
                 CountryName = city.Country.CountryName,
-                RegionName = region?.RegionName // Use the null conditional operator in case the region is null
+                RegionName = city.Country.Region?.RegionName, // Use the null conditional operator in case the region is null
+               
             };
 
             return View(viewModel); // Return the view with the populated ViewModel
