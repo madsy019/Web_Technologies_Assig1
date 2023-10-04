@@ -73,8 +73,13 @@
                 <td>@city.RecordCount</td>
                 <td>
 
-                    <!-- Link to view the Air Quality Data for the selected city (to be implemented in Task 5) -->
-                    <a href="#" class="btn btn-info btn-sm">View Air Quality Data</a>
+                   <a asp-controller="Cities"
+                   asp-action="Details"
+                   asp-route-id="@city.CityId"
+                   asp-route-countryID="@Model.CountryId"
+                   class="btn btn-info btn-sm">
+                        View Air Quality Data
+                    </a>
                 </td>
             </tr>
         }
