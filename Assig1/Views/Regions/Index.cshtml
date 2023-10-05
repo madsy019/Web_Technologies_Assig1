@@ -52,9 +52,7 @@
 
     </div>
 
-    <div class=" col-md-2">
-        <a asp-action="Create" class="btn btn-primary">Create New</a>
-    </div>
+
 
 </form>
 
@@ -64,30 +62,46 @@
 
     @foreach (var item in Model)
     {
+        <div class="col-sm-3 mb-4">
 
+            <div class="card" style="width: 18rem;">
 
-        <div class="card" style="width: 18rem;">
+                <img src="@Html.DisplayFor(model => item.ImageUrl)" class="card-img-top" alt="..." style="height: 200px; object-fit: cover;">
 
-            <img src="@Html.DisplayFor(model => item.ImageUrl)" class="card-img-top" alt="...">
-            
-            <div class="card-body">
+                <div class="card-body d-flex flex-column flex-grow-1">
 
-                <h5 class="card-title mb-auto"> @Html.DisplayFor(modelItem => item.RegionName)</h5>
+                    <h5 class="card-title mb-auto" style="height: 3rem; overflow: hidden;"> @Html.DisplayFor(modelItem => item.RegionName)</h5>
 
-                <a asp-action="Edit" asp-route-id="@item.RegionId" class="btn btn-dark btn-sm mr-2">Edit</a>
-                <a asp-action="Details" asp-route-id="@item.RegionId" class="btn btn-info btn-sm mr-2">Details</a>
-                <a asp-action="Delete" asp-route-id="@item.RegionId" class="btn btn-danger btn-sm mr-2">Delete</a>
+                    <div>
+                        <div class="text-center mt-2">
 
-                <!--Button to navigate to countries in selected region-->
-                <a asp-controller="Countries" asp-action="Index" asp-route-id="@item.RegionId" class="btn btn-primary btn-sm mt-2">View Countries</a>
+                            <!-- Added a margin-top for some space above the buttons -->
+                            <a asp-action="Edit" asp-route-id="@item.RegionId" class="btn btn-outline-secondary btn-sm mr-2">Edit</a>
+                           
+                            <a asp-action="Details" asp-route-id="@item.RegionId" class="btn btn-outline-info btn-sm mr-2">Details</a>
+                            
+                            <a asp-action="Delete" asp-route-id="@item.RegionId" class="btn btn-outline-danger btn-sm mr-2">Delete</a>
+                            
+                            <a asp-controller="Countries" asp-action="Index" asp-route-id="@item.RegionId" class="btn btn-info btn-sm mt-2">View Countries</a>
+
+                        </div>
+
+                    </div>
 
  
-            </div>
+                </div>
+
+             </div>
+
         </div>
     }
 
 
 
+</div>
+
+<div class=" col-md-2">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </div>
 
 
