@@ -11,8 +11,10 @@
         <h2>@Model.CityName</h2>
     </div>
     <div class="card-body">
+
         <p><strong>Country:</strong> @Model.CountryName</p>
         <p><strong>Region:</strong> @Model.RegionName</p>
+
     </div>
 </div>
 
@@ -27,24 +29,50 @@
             <th>Temporal Coverage 2</th>
             <th>Annual Mean PM2.5</th>
             <th>Reference</th>
-            <th>Status</th>
 
-            <!-- Add other columns as needed -->
+
+            <th>Number of Monitoring Stations</th>
+            <th>Station Types</th>
         </tr>
+
     </thead>
+
     <tbody>
+
         @foreach (var aqd in Model.AirQualityDataList)
         {
             <tr>
                 <td>@aqd.Year</td>
+
                 <td>@aqd.AnnualMean</td>
+
                 <td>@aqd.TemporalCoverage1</td>
+
                 <td>@aqd.AnnualMeanPm10</td>
+
                 <td>@aqd.AnnualMeanUgm3</td>
+
                 <td>@aqd.TemporalCoverage2</td>
+
                 <td>@aqd.AnnualMeanPm25</td>
+                
                 <td>@aqd.Reference</td>
-                <td>@aqd.Status</td>
+
+                <td>@(aqd.AirQualityStations?.Count ?? 0)</td>
+
+                <td>
+                    @if (aqd.AirQualityStations != null)
+                    {
+                        @foreach (var station in aqd.AirQualityStations)
+                        {
+                            @station.StationType <br />
+                        }
+
+
+                    }
+
+                </td>
+
             </tr>
         }
     </tbody>
@@ -53,4 +81,5 @@
 <!-- Button to navigate back to the previous step -->
 <div class="mt-4">
     <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-secondary">Back to Previous Page</a>
+
 </div>
