@@ -110,11 +110,12 @@ namespace Assig1.Controllers
 
             // Fetch the city, country, and region information
             var city = _context.Cities
-                               .Include(c => c.Country) // Include the related Country data
-                               .ThenInclude(country => country.Region)
-                               .Include(c => c.AirQualityData)  // Include AirQualityData
-                               .ThenInclude(aqd => aqd.AirQualityStations)  // Optionally include related AirQualityStations
-                               .FirstOrDefault(c => c.CityId == id);
+                       .Include(c => c.Country)
+                       .ThenInclude(country => country.Region)
+                       .Include(c => c.AirQualityData)
+                       .ThenInclude(aqd => aqd.AirQualityStations)
+                       .ThenInclude(aqs => aqs.StationType)
+                       .FirstOrDefault(c => c.CityId == id);
 
             if (city == null)
             {
@@ -144,7 +145,15 @@ namespace Assig1.Controllers
                     AnnualMeanPm25 = aqd.AnnualMeanPm25,
                     Reference = aqd.Reference,
                     Status = aqd.Status,
-                }).ToList()  // Pass the AirQualityData to the ViewModel
+
+                    AirQualityStations = aqd.AirQualityStations.Select(aqs => new AirQualityStationViewModel
+                    {
+                        StationTypeId = aqs.StationTypeId,
+                        AqdId = aqs.AqdId,
+                        Number = aqs.Number,
+                        StationType = aqs.StationType.StationType
+                    }).ToList()
+                }).ToList()
             };
 
             return View(viewModel); // Return the view with the populated ViewModel

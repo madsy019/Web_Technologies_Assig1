@@ -34,6 +34,15 @@
         public string? ImageUrl { get; set; }
     }
 
+    //Add air qualityStaion ViewModel
+    public class AirQualityStationViewModel
+    {
+        public int StationTypeId { get; set; }
+        public int AqdId { get; set; }
+        public int ? Number { get; set; }
+        public string? StationType { get; set; }
+    }
+
     // Represents a view model for city air quality information.
     public class CityAirQualityInfoViewModel
     {
@@ -49,5 +58,7 @@
         public string? Reference { get; set; }
         public int? DbYear { get; set; }
         public string? Status { get; set; }
+
+        public List<AirQualityStationViewModel> AirQualityStations { get; set; }
     }
 }
