@@ -16,6 +16,40 @@
     </div>
 </div>
 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Annual Mean</th>
+            <th>Temporal Coverage 1</th>
+            <th>Annual Mean PM10</th>
+            <th>Annual Mean Ugm3</th>
+            <th>Temporal Coverage 2</th>
+            <th>Annual Mean PM2.5</th>
+            <th>Reference</th>
+            <th>Status</th>
+
+            <!-- Add other columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aqd in Model.AirQualityDataList)
+        {
+            <tr>
+                <td>@aqd.Year</td>
+                <td>@aqd.AnnualMean</td>
+                <td>@aqd.TemporalCoverage1</td>
+                <td>@aqd.AnnualMeanPm10</td>
+                <td>@aqd.AnnualMeanUgm3</td>
+                <td>@aqd.TemporalCoverage2</td>
+                <td>@aqd.AnnualMeanPm25</td>
+                <td>@aqd.Reference</td>
+                <td>@aqd.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <!-- Button to navigate back to the previous step -->
 <div class="mt-4">
     <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-secondary">Back to Previous Page</a>

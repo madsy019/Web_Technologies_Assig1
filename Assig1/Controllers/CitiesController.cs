@@ -118,14 +118,10 @@ namespace Assig1.Controllers
 
             if (city == null)
             {
-                return NotFound(); 
+                return NotFound();  // Return a 404 error if the city is not found
             }
 
-/*            // Fetch the CountryId for the given CityId
-            var countryId = _context.Cities
-                .Where(c => c.CityId == cityID)
-                .Select(c => c.CountryId)
-                .FirstOrDefault();*/
+       
 
             // Fetch the region for the country
             var region = _context.Regions.FirstOrDefault(r => r.RegionId == city.Country.RegionId);
@@ -136,7 +132,19 @@ namespace Assig1.Controllers
                 CityName = city.CityName,
                 CountryName = city.Country.CountryName,
                 RegionName = city.Country.Region?.RegionName, // Use the null conditional operator in case the region is null
-                /*AirQualityDataList = airQualityInfoList*/
+                
+                AirQualityDataList = city.AirQualityData.Select(aqd => new CityAirQualityInfoViewModel
+                {
+                    Year = aqd.Year,
+                    AnnualMean = aqd.AnnualMean,
+                    TemporalCoverage1 = aqd.TemporalCoverage1,
+                    AnnualMeanPm10 = aqd.AnnualMeanPm10,
+                    AnnualMeanUgm3 = aqd.AnnualMeanUgm3,
+                    TemporalCoverage2 = aqd.TemporalCoverage2,
+                    AnnualMeanPm25 = aqd.AnnualMeanPm25,
+                    Reference = aqd.Reference,
+                    Status = aqd.Status,
+                }).ToList()  // Pass the AirQualityData to the ViewModel
             };
 
             return View(viewModel); // Return the view with the populated ViewModel

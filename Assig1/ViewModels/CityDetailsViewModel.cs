@@ -7,7 +7,7 @@
         public string? CityName { get; set; }
         public string? CountryName { get; set; }
         public string? RegionName { get; set; }
-        public List<AirQualityDataInfo> AirQualityDataList { get; set; } = new List<AirQualityDataInfo>();
+        public List<CityAirQualityInfoViewModel>? AirQualityDataList { get; set; }
     }
 
     // Represents air quality data information for a specific year and item.
